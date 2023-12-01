@@ -1,4 +1,4 @@
-# AI_Speech_Emotion_Detector_using_Whisper_and_Transformers_libraries
+# AI Speech Emotion Detector using Whisper and Transformers libraries
 This project demonstrates a simple pipeline for Speech Emotion Recognition using Whisper for speech recognition, RoBERTa for text representation extraction, and BART for emotion detection.
 
 ## Installation
