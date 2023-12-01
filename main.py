@@ -17,7 +17,7 @@ denoiser = Denoiser("whisper-large")
 def recognize_speech(audio_file):
     waveform, sample_rate = torchaudio.load(audio_file)
     denoised_waveform = denoiser(waveform)
-    transcript = " ".join([" ".join(hypo.tokens) for hypo in recognizer.transcribe(denoised_waveform[0].numpy())])
+    transcript = " ".join([" ".join(hypo.tokens) for hypo in denoiser.transcribe(denoised_waveform[0].numpy())])
     return transcript
 
 def extract_text_representation(transcript):
@@ -42,15 +42,19 @@ def main():
     # Replace with the path to your audio file
     audio_file_path = "path_to_your_audio_file.wav"
 
-    # Speech recognition with Whisper
-    transcript = recognize_speech(audio_file_path)
+    try:
+        # Speech recognition with Whisper
+        transcript = recognize_speech(audio_file_path)
 
-    # Extract text representation using RoBERTa
-    text_representation = extract_text_representation(transcript)
+        # Extract text representation using RoBERTa
+        text_representation = extract_text_representation(transcript)
 
-    # Emotion detection using BART
-    predicted_emotion = detect_emotion(text_representation)
-    print("Predicted Emotion:", predicted_emotion)
+        # Emotion detection using BART
+        predicted_emotion = detect_emotion(text_representation)
+        print("Predicted Emotion:", predicted_emotion)
+
+    except Exception as e:
+        print("Error:", e)
 
 if __name__ == "__main__":
     main()
